@@ -5,6 +5,5 @@ export const signIn = async (body: any) => {
   return await instance.post<SignInResponse>('/user/signIn', body);
 };
 export const signUp = async (body: SignUpForm) => {
-  console.log('body', body);
   return await instance.post('/user/signup', body);
 };

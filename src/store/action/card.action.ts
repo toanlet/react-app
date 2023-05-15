@@ -1,9 +1,12 @@
+
 import {
   ADD_TO_CARD,
   DELETE_CARD,
   IS_CHECK,
   UPDATE_QUALITY,
 } from '../constant';
+
+
 
 export const card = (payload: any) => {
   return {
@@ -32,3 +35,5 @@ export const isChecked = (payload: any) => {
     payload,
   };
 };
+
+

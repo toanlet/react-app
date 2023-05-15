@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Image, Button } from 'antd';
-import { useAppDispatch, useRouter } from 'src/hooks';
+import { useAppDispatch, useAppSelector, useRouter } from 'src/hooks';
 import './styles.scss';
 
 import { ADD_TO_CARD } from 'src/store/constant';
 import { AppQuality } from 'src/common/app-quality';
 import { useModalContext } from 'src/context/modal-contex';
 import { AppModal } from 'src/common/app-modal';
+import { addToCard } from 'src/store/action';
 
 const Detail: React.FC<any> = () => {
   const { location } = useRouter();
@@ -14,6 +15,9 @@ const Detail: React.FC<any> = () => {
   const { handleClose, isOpen, handleOpen } = useModalContext();
 
   const dispatch = useAppDispatch();
+  const { wishList } = useAppSelector((s: any) => s.rootReducer);
+
+  console.log('wishlist state', wishList);
 
   const handleAddToCard = () => {
     const cardItem = {
@@ -30,11 +34,20 @@ const Detail: React.FC<any> = () => {
       isCheck: false,
     };
 
-    dispatch({
-      type: ADD_TO_CARD,
-      payload: cardItem,
-    });
-    handleOpen();
+    // dispatch({
+    //   type: ADD_TO_CARD,
+    //   payload: cardItem,
+    // });
+    // handleOpen();
+    dispatch(
+      addToCard({
+        name: location.state.title,
+        description: location.state.description,
+        price: location.state.price,
+        image: location.state.imageURL,
+        id: location.state.id,
+      })
+    );
   };
 
   const handleChange = (valueChange: any, id: number) => {

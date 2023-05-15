@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button,  } from 'antd';
 import { useForm } from 'react-hook-form';
 import { AppInput } from 'src/common/app-input';
 import './styles.scss';
@@ -7,12 +7,15 @@ import { REGEX } from 'src/constand';
 import { signUp } from 'src/api/auth';
 import { useAppSelector, useAppDispatch } from 'src/hooks';
 import { SHOW_TOAST } from 'src/store/constant';
+import AppRadioGroup from 'src/common/app-radio-group';
 
 export interface SignUpForm {
   email: string;
   firstName: string;
   lastName: string;
   passWord: string;
+
+  gender: boolean | null;
 }
 
 export const SignUp = () => {
@@ -21,15 +24,28 @@ export const SignUp = () => {
     firstName: '',
     lastName: '',
     passWord: '',
+    gender: null,
   };
 
   const {
     handleSubmit,
     control,
     formState: { errors },
+    setValue,
   } = useForm<SignUpForm>({
     defaultValues: formData,
   });
+
+  const options = [
+    {
+      text: 'Male',
+      value: 1,
+    },
+    {
+      text: 'Female',
+      value: 2,
+    },
+  ];
 
   const state = useAppSelector((s: any) => s);
   console.log(state);
@@ -37,6 +53,7 @@ export const SignUp = () => {
 
   const onSubmit = (form: any) => {
     handleSignUp(form);
+    console.log('form', form);
   };
 
   const handleSignUp = async (data: SignUpForm) => {
@@ -129,7 +146,14 @@ export const SignUp = () => {
           }}
           textError={errors.lastName?.message}
         />
-
+        <AppRadioGroup
+          options={options}
+          controller={{
+            name: 'gender',
+            control,
+          }}
+          onChange={(e: any) => setValue('gender', e.target.value)}
+        />
         <Button type="primary" htmlType="submit">
           Submit
         </Button>

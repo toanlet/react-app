@@ -1,4 +1,4 @@
-import { Button, Checkbox, Image, Table } from 'antd';
+import { Button, Checkbox, Image } from 'antd';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector, useRouter } from 'src/hooks';
 import './styles.scss';
@@ -28,7 +28,6 @@ export const CardList = () => {
 
   useEffect(() => {
     setList(list);
-    console.log('change');
     const total = list.reduce((total, acc) => {
       if (acc.isCheck && acc.amount) {
         return (total += acc.amount);
@@ -67,15 +66,7 @@ export const CardList = () => {
 
     dispatch({
       type: UPDATE_QUALITY,
-      payload: { id: el.id, quality: valueChange },
-    });
-
-    dispatch({
-      type: IS_CHECK,
-      payload: {
-        id: el.id,
-        isCheck: el.isCheck,
-      },
+      payload: { id: el.id, quality: valueChange, isCheck: el.isCheck },
     });
   };
 

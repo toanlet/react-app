@@ -11,3 +11,4 @@ export const DELETE_CARD = 'DELETE_CARD';
 
 export const IS_CHECK = 'IS_CHECK';
 
+export const GET_WISH_LIST = 'GET_WISH_LIST';

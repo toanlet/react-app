@@ -1,4 +1,4 @@
-import { isChecked } from './../action/card.action';
+import { createSlice } from '@reduxjs/toolkit';
 import {
   ADD_TO_CARD,
   DELETE_CARD,
@@ -69,13 +69,13 @@ export const cardReducer = (state = initialState, action: any) => {
             ...el,
             quality: action.payload.quality,
             amount: action.payload.quality * el.price,
+            isCheck: action.payload.isCheck,
           };
         }
         return { ...el };
       });
 
       localStorage.setItem('card', JSON.stringify([...itemUpdate]));
-      console.log('itemUpdate', itemUpdate);
       return {
         ...state,
         cardList: itemUpdate,
